@@ -15,9 +15,9 @@ import {DEFAULT_IMG_URL} from '../../utils/constants/images';
  * @return {jsx}
  */
 const Image = ( props ) => {
-	const {altText, title, width, height, sourceUrl, className, layout, objectFit, containerClassNames, showDefault, ...rest} = props;
+	const {alttext, title, width, height, sourceurl, className, layout, objectFit, containerClassNames, showDefault, ...rest} = props;
 	
-	if ( ! sourceUrl && ! showDefault ) {
+	if ( ! sourceurl && ! showDefault ) {
 		return null;
 	}
 	
