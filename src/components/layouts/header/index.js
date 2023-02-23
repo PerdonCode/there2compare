@@ -32,7 +32,7 @@ const Header = ( { header }) => {
                                 }
                         </Link>
                         <span>
-                            <Link href="/" className="font-semibold text-xl tracking-tight">
+                            <Link href="/" className="font-semibold text-xl tracking-tight" legacyBehavior>
                                 { siteTitle || 'There2Compare' }
                             </Link>
                             { siteDescription ? <p>{ siteDescription }</p> : null }
