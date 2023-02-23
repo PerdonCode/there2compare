@@ -28,6 +28,9 @@ export default function Home({data}) {
 
 export async function getStaticProps() {
 	const { data } = await axios.get( HEADER_FOOTER_ENDPOINT );
+	const {data : products} = await axios.get('http://localhost:3000/api/get-products');
+	console.log('products',products);
+
 	
 	return {
 		props: data || {},
