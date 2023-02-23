@@ -29,8 +29,8 @@ const Image = ( props ) => {
 	 */
 	if ( 'fill' === layout ) {
 		const attributes = {
-			alt: altText || title,
-			src: sourceUrl || ( showDefault ? DEFAULT_IMG_URL : '' ),
+			alt: alttext || title,
+			src: sourceurl || ( showDefault ? DEFAULT_IMG_URL : '' ),
 			layout: 'fill',
 			className: cx( 'object-cover', className ),
 			...rest
@@ -43,8 +43,8 @@ const Image = ( props ) => {
 		);
 	} else {
 		const attributes = {
-			alt: altText || title,
-			src: sourceUrl || ( showDefault ? DEFAULT_IMG_URL : '' ),
+			alt: alttext || title,
+			src: sourceurl || ( showDefault ? DEFAULT_IMG_URL : '' ),
 			width: width || 'auto',
 			height: height || 'auto',
 			className,
@@ -55,9 +55,9 @@ const Image = ( props ) => {
 };
 
 Image.propTypes = {
-	altText: PropTypes.string,
+	alttext: PropTypes.string,
 	title: PropTypes.string,
-	sourceUrl: PropTypes.string,
+	sourceurl: PropTypes.string,
 	layout: PropTypes.string,
 	showDefault: PropTypes.bool,
 	containerClassName: PropTypes.string,
@@ -65,9 +65,9 @@ Image.propTypes = {
 };
 
 Image.defaultProps = {
-	altText: '',
+	alttext: '',
 	title: '',
-	sourceUrl: '',
+	sourceurl: '',
 	showDefault: true,
 	containerClassNames: '',
 	className: 'product__image',
