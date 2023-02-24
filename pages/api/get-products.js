@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 		const { data } = await api.get(
 			'products',
 			{
-				per_page: perPage || 50
+				per_page: perPage || 3
 			}
 		);
 		
