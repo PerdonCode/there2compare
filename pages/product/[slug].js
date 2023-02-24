@@ -6,4 +6,11 @@ export default function Product () {
  
 export async function getStaticPaths(){
     const {data: products} = await getProductsData()
-} 
+
+    const pathsData = [];
+
+    return {
+        paths: pathsData,
+        fallback: true,
+    }
+}  
