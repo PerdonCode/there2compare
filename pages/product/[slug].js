@@ -1,16 +1,48 @@
-import { getProductsData } from "../../src/utils/constants/products";
+import { getProductBySlug, getProductsData } from "../../src/utils/constants/products";
+import { useRouter } from "next/router";
+import { HEADER_FOOTER_ENDPOINT } from "../../src/utils/constants/endpoints";
+import axios from "axios";
 
-export default function Product () {
-    return null;
-}
- 
-export async function getStaticPaths(){
-    const {data: products} = await getProductsData()
+export default function Product ({headerFooterData, product}) {
+    const router = useRouter();
 
-    const pathsData = [];
+    console.log('product', product);
 
-    return {
-        paths: pathsData,
-        fallback: true,
+    if(router.isFallback){
+        return <div>Loading...</div>
     }
-}  
+    return 'hello';
+}
+
+export async function getStaticProps( { params } ) {
+	
+	const { slug } = params || {};
+	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
+	const { data: product } = await getProductBySlug( slug );
+	
+	return {
+		props: {
+			headerFooter: headerFooterData?.data ?? {},
+			product: product.length ? product[ 0 ] : {},
+		},
+		revalidate: 1,
+	};
+}
+
+export async function getStaticPaths() {
+	const { data: products } = await getProductsData();
+	
+	// Expected Data Shape: [{ params: { slug: 'pendant' } }, { params: { slug: 'shirt' } }],
+	const pathsData = [];
+	
+	products.length && products.map( ( product ) => {
+		if ( product.slug ) {
+			pathsData.push( { params: { slug: product.slug ?? '' } } );
+		}
+	} );
+	
+	return {
+		paths: pathsData,
+		fallback: true,
+	};
+}

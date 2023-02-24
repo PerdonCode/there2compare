@@ -25,3 +25,13 @@ export const getProductsData = async ( perPage = 50) =>  {
         },
     );
 };
+
+export const getProductBySlug = async ( productSlug ) =>  {
+	
+	return await api.get(
+        'products',
+        {
+            slug :productSlug || '',
+        },
+    );
+};

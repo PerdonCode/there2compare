@@ -10,13 +10,14 @@ const Products = ({ products }) => {
 	}
 	
 	return (
-        <div className="flex flex-wrap -mx-2 overflow-hidden">
+        <div className="flex mx-auto flex-wrap items-center max-w-6xl overflow-hidden border rounded space-between">
+            
 			
 			{ products.length ? products.map( product => {
 				const img = product?.images?.[0] ?? {};
 				return (
-                    <div key={ product?.id } className="my-2 px-2 w-full overflow-hidden sm:w-1/2 md:w-1/3 xl:w-1/4">
-						<Link href={product?.permalink ?? '/'}>
+                    <div key={ product?.id } className="picture w-full overflow-hidden sm:w-1/2 md:w-1/3 xl:w-1/4 ">
+						<Link href={`/product/ ${product?.slug ?? ''}`}>
 
                             <Image
                                 sourceurl={ img?.src ?? '' }
