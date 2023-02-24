@@ -10,6 +10,7 @@ import Products from '../src/components/products';
  * External Dependencies.
  */
 import axios from 'axios';
+import { getProductsData } from '../src/utils/constants/products';
 
 export default function Home({headerFooter, products}) {
 	const { header, footer } = headerFooter || {};
@@ -17,7 +18,7 @@ export default function Home({headerFooter, products}) {
 	return (
 		<div >
 			<Header header={header}/>
-			<main className='container mx-auto p-4'>
+			<main className='container mx-auto py-4'>
 				<Products products={products}/>
 			</main>
 		</div>
@@ -26,12 +27,12 @@ export default function Home({headerFooter, products}) {
 
 export async function getStaticProps() {
 	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
-	const { data: productsData } = await axios.get( GET_PRODUCTS_ENDPOINT );
-
+	const { data: products } = await getProductsData();
+	
 	return {
 		props: {
 			headerFooter: headerFooterData?.data ?? {},
-			products: productsData?.products ?? {}
+			products: products ?? {}
 		},
 		
 		/**
