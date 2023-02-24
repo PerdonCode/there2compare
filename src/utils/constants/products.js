@@ -16,7 +16,7 @@ const api = new WooCommerceRestApi({
  * @param res
  * @return {Promise<void>}
  */
-export const getProductsData = async ( perPage) =>  {
+export const getProductsData = async ( perPage = 50) =>  {
 	
 	return await api.get(
         'products',
