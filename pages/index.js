@@ -1,7 +1,7 @@
 /**
  * Internal Dependencies.
  */
-import { GET_PRODUCTS_ENDPOINT, HEADER_FOOTER_ENDPOINT } from '../src/utils/constants/endpoints';
+import { GET_POSTS_ENDPOINT, GET_PRODUCTS_ENDPOINT, HEADER_FOOTER_ENDPOINT } from '../src/utils/constants/endpoints';
 import Header from '../src/components/layouts/header';
 import Footer from '../src/components/layouts/footer';
 import Products from '../src/components/products';
@@ -12,7 +12,7 @@ import Products from '../src/components/products';
 import axios from 'axios';
 import { getProductsData } from '../src/utils/constants/products';
 
-export default function Home({headerFooter, products}) {
+export default function Home({headerFooter, products, posts}) {
 	const { header, footer } = headerFooter || {};
 
 	return (
@@ -20,6 +20,7 @@ export default function Home({headerFooter, products}) {
 			<Header header={header}/>
 			<main className='container mx-auto py-4'>
 				<Products products={products}/>
+			
 			</main>
 		</div>
 	)
@@ -28,11 +29,13 @@ export default function Home({headerFooter, products}) {
 export async function getStaticProps() {
 	const { data: headerFooterData } = await axios.get( HEADER_FOOTER_ENDPOINT );
 	const { data: products } = await getProductsData();
+	const { data: blogs } = await axios.get(GET_POSTS_ENDPOINT);
 	
 	return {
 		props: {
 			headerFooter: headerFooterData?.data ?? {},
-			products: products ?? {}
+			products: products ?? {},
+			posts:  blogs?.data ?? {}
 		},
 		
 		/**
