@@ -2,16 +2,24 @@ import { getProductBySlug, getProductsData } from "../../src/utils/constants/pro
 import { useRouter } from "next/router";
 import { HEADER_FOOTER_ENDPOINT } from "../../src/utils/constants/endpoints";
 import axios from "axios";
+import SingleProduct from '../../src/components/single-product';
+import Header from "../../src/components/layouts/header";
 
-export default function Product ({headerFooterData, product}) {
+export default function Product ({headerFooter, product}) {
     const router = useRouter();
 
-    console.log('product', product);
+	const { header, footer } = headerFooter || {};
+	const {productbyslug} = product || {};
 
     if(router.isFallback){
         return <div>Loading...</div>
     }
-    return 'hello';
+    return (
+		<div>
+			<Header header={header}/>
+			<SingleProduct product={ product }/>
+		</div>
+	);
 }
 
 export async function getStaticProps( { params } ) {
