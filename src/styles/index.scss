@@ -5,3 +5,34 @@
 
 // Image Gallery Styles.
 @import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+
+.image img{
+    height: 150px;
+    width: auto;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.image h3{
+   text-align: center;
+}
+
+.price{
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.dots img{
+    height: 30px;
+    width: auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+}
+
+.dots{
+    position: relative;
+}
