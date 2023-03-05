@@ -5,6 +5,7 @@ import { sanitize } from '../../utils/miscellaneous';
 
 
 const Products = ({ products }) => {
+    console.log(products);
 	
 	if ( isEmpty( products ) || !isArray( products ) ) {
 		return null;

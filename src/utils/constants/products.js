@@ -1,3 +1,5 @@
+import { GET_POSTS_ENDPOINT } from "./endpoints";
+
 const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
 
 const api = new WooCommerceRestApi({
@@ -35,3 +37,4 @@ export const getProductBySlug = async ( productSlug ) =>  {
         },
     );
 };
+
