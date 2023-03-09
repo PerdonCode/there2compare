@@ -1,12 +1,44 @@
 import Head from "next/head";
 import Link from 'next/link';
 import isEmpty from 'lodash/isEmpty';
+import Image from "next/image";
+import React, {useState, useEffect, useRef} from "react";
+import edit from './/../../../../public/img/log-out.png';
+import heart from './/../../../../public/img/log-out.png';
+import question from './/../../../../public/img/log-out.png';
+import user from './/../../../../public/img/user.png';
+import envelope from './/../../../../public/img/log-out.png';
+import logout from './/../../../../public/img/log-out.png';
+
 
 
 const Header = ( { header }) => {
+    
 
+    const [open, setOpen] = useState(false);
+    let menuRef = useRef();
+    {/* header dynamic menu items*/}
     const {headerMenuItems, siteDescription, siteLogoUrl, siteTitle, favicon} = header || {};
 
+
+    {/* react hook for closing dropdown menu if the user click outside the menu*/}
+    useEffect(() => {
+        let handler = (e)=>{
+          if(!menuRef.current.contains(e.target)){
+            setOpen(false);
+            console.log(menuRef.current);
+          }      
+        };
+        document.addEventListener("mousedown", handler);
+    
+
+    return() =>{
+      document.removeEventListener("mousedown", handler);
+    }
+
+  });
+    {/* test var for the if statement for user login*/}
+    let text = 'a';
 
     return <>
    <Head>
@@ -15,7 +47,7 @@ const Header = ( { header }) => {
         </Head>
         <div className="header">
             <nav className="bg-gradient-to-r from-teal-300 to-green-700 p-4" >
-                <div className="flex items-center justify-between flex-wrap container mx-auto max-w-6xl">
+                <div className="flex items-center justify-between flex-wrap container  mx-auto max-w-4xl">
                     <div className="flex items-center flex-shrink-0 text-black mr-20">
                         <Link href="/" legacyBehavior>
                                 {
@@ -48,10 +80,50 @@ const Header = ( { header }) => {
                             </svg>
                         </button>
                     </div>
-                    <div
-                        className="h-0 w-full overflow-hidden lg:h-full flex-grow lg:flex lg:items-center lg:w-auto">
+                        <div> 
+                            {/* no user session show login or register */}
+                           {text.length > 0 ?
+                            <div className="menu-container" ref={menuRef}>
+                            <div className="menu-trigger" onClick={()=>setOpen(!open)}>
+                                <Image src="/img/Sample_User_Icon.png" width={20} height={10}></Image>
+                            </div>
+                             <div className={`dropdown-menu border ${open? 'active' : 'inactive'}`} >
+                                <h3>Welcome User</h3>
+                                <ul>
+                                    <DropdownItem img = {login} text = {"Log in"} />
+                                    <DropdownItem img = {user} text = {"Register"} />
+                                    <DropdownItem img = {envelope} text = {"Contact Us"} />
+                                </ul>
+                            </div>
+                       </div>
+                           : 
+                           <div className="menu-container" ref={menuRef}>
+                            {/* user session show login dropdown menu */}
+                                <div className="menu-trigger" onClick={()=>setOpen(!open)}>
+                                    <Image src="/img/Sample_User_Icon.png" width={20} height={10}></Image>
+                                </div>
+                                 <div className={`dropdown-menu border ${open? 'active' : 'inactive'}`} >
+                                    <h3>UserName </h3>
+                                    <ul>
+                                        <DropdownItem img = {user} text = {"My Profile"} />
+                                        <DropdownItem img = {edit} text = {"Edit Profile"} />
+                                        <DropdownItem img = {heart} text = {"Favorites"} />
+                                        <DropdownItem img = {envelope} text = {"Inbox"} />
+                                        <DropdownItem img = {question} text = {"contact"}/>
+                                        <DropdownItem img = {logout} text = {"logout"} />
+                                    </ul>
+                                </div>
+                           </div>
+                         }
+                        </div>
+                </div>
+            </nav>
+            <nav>
+            <div
+                        className="h-0 w-full overflow-hidden lg:h-full flex-grow lg:flex lg:items-center lg:w-auto  mx-auto max-w-4xl">
+                            {/* Dynamic navbar */}
                         <div className="text-sm font-medium uppercase lg:flex-grow">
-                            { ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.map( menuItem => (
+                            { ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.slice(0,5).map( menuItem => (
                                 (<Link
                                     key={menuItem?.ID}
                                     href={ menuItem?.url || '/' }
@@ -61,29 +133,19 @@ const Header = ( { header }) => {
                                 </Link>)
                             ) ) : null }
                         </div>
-                        <a href="#responsive-header"
-                               className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-20 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="hidden lg:block m-auto"
-                                     fill="none" viewBox="0 0 24 24" width="25" height="auto" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"
-                                          d="M13.22,2.984c-1.125,0-2.504,0.377-3.53,1.182C8.756,3.441,7.502,2.984,6.28,2.984c-2.6,0-4.714,2.116-4.714,4.716c0,0.32,0.032,0.644,0.098,0.96c0.799,4.202,6.781,7.792,7.46,8.188c0.193,0.111,0.41,0.168,0.627,0.168c0.187,0,0.376-0.041,0.55-0.127c0.011-0.006,1.349-0.689,2.91-1.865c0.021-0.016,0.043-0.031,0.061-0.043c0.021-0.016,0.045-0.033,0.064-0.053c3.012-2.309,4.6-4.805,4.6-7.229C17.935,5.1,15.819,2.984,13.22,2.984z M12.544,13.966c-0.004,0.004-0.018,0.014-0.021,0.018s-0.018,0.012-0.023,0.016c-1.423,1.076-2.674,1.734-2.749,1.771c0,0-6.146-3.576-6.866-7.363C2.837,8.178,2.811,7.942,2.811,7.7c0-1.917,1.554-3.47,3.469-3.47c1.302,0,2.836,0.736,3.431,1.794c0.577-1.121,2.161-1.794,3.509-1.794c1.914,0,3.469,1.553,3.469,3.47C16.688,10.249,14.474,12.495,12.544,13.966z"></path>
-                                </svg>
-                            </a>
-                        <div className="text-sm font-medium">
-                            <a href="#responsive-header"
-                               className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-black mr-20">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="hidden lg:block m-auto"
-                                     fill="none" viewBox="0 0 24 24" width="25" height="auto" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                            </a>
                         </div>
-                    </div>
-                </div>
             </nav>
         </div>
     </>;
 };
+
+function DropdownItem(props){
+    return(
+      <li className = 'dropdownItem'>
+        <img src={props.img}></img>
+        <a> {props.text} </a>
+      </li>
+    );
+}
 
 export default Header;
