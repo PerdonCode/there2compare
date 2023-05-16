@@ -7,18 +7,38 @@ const Login = () => {
     email: '',
     password: '',
   });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform login logic here (e.g., send data to server)
+      e.preventDefault();
+      // logic login
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
     console.log(formData);
-    // Redirect to the dashboard or home page after successful login
-    router.push('/');
+      
+    if (response.ok) {
+      // Redirect to the dashboard or home page after successful login
+      router.push('/');
+    } else {
+      const data = await response.json();
+      setError(data.error);
+    }
+    } catch (error) {
+      setError('An error occurred. Please try again.');
+      console.error(error);
+    }
   };
+};
 
   return (
     <div>
