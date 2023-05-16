@@ -9,6 +9,7 @@ import question from './/../../../../public/img/log-out.png';
 import user from './/../../../../public/img/user.png';
 import envelope from './/../../../../public/img/log-out.png';
 import logout from './/../../../../public/img/log-out.png';
+import login from './/../../../../public/img/login.png';
 
 
 
@@ -38,7 +39,7 @@ const Header = ( { header }) => {
 
   });
     {/* test var for the if statement for user login*/}
-    let text = 'a';
+    let text = '';
 
     return <>
    <Head>
@@ -92,7 +93,7 @@ const Header = ( { header }) => {
                                 <ul>
                                     <DropdownItem img = {login} text = {"Log in"} />
                                     <DropdownItem img = {user} text = {"Register"} />
-                                    <DropdownItem img = {envelope} text = {"Contact Us"} />
+                                    <Link href={`/contact`}><DropdownItem img = {question} text = {"contact"}/></Link>
                                 </ul>
                             </div>
                        </div>
@@ -109,7 +110,7 @@ const Header = ( { header }) => {
                                         <DropdownItem img = {edit} text = {"Edit Profile"} />
                                         <DropdownItem img = {heart} text = {"Favorites"} />
                                         <DropdownItem img = {envelope} text = {"Inbox"} />
-                                        <DropdownItem img = {question} text = {"contact"}/>
+                                        <Link href={`/contact`}><DropdownItem img = {question} text = {"contact"}/></Link>
                                         <DropdownItem img = {logout} text = {"logout"} />
                                     </ul>
                                 </div>
@@ -120,9 +121,9 @@ const Header = ( { header }) => {
             </nav>
             <nav>
             <div
-                        className="h-0 w-full overflow-hidden lg:h-full flex-grow lg:flex lg:items-center lg:w-auto  mx-auto max-w-4xl">
+                        className="h-0 w-full overflow-hidden lg:h-full flex-grow lg:flex lg:items-center lg:w-auto mx-auto bg-white ">
                             {/* Dynamic navbar */}
-                        <div className="text-sm font-medium uppercase lg:flex-grow">
+                        <div className="text-sm font-medium uppercase lg:flex-grow max-w-4xl mx-auto">
                             { ! isEmpty( headerMenuItems ) && headerMenuItems.length ? headerMenuItems.slice(0,5).map( menuItem => (
                                 (<Link
                                     key={menuItem?.ID}
